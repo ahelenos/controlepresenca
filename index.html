@@ -1,73 +1,109 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de PresenÃ§a - Login</title>
+
+    <title>Controle de Presença - Login</title>
+
     <link rel="stylesheet" href="css/app.css">
 </head>
 
 <body class="login-page">
 
-<div class="login-card">
+    <div class="login-card">
 
-    <div class="logo">ðŸ­</div>
+        <div class="logo">
+            🏭
+        </div>
 
-    <h1>Controle de PresenÃ§a</h1>
+        <h1>Controle de Presença</h1>
 
-    <p class="subtitle">
-        Sistema de controle de colaboradores
-    </p>
+        <p class="subtitle">
+            Sistema de controle de colaboradores
+        </p>
 
-    <form id="loginForm">
+        <form id="loginForm">
 
-        <label>
-            E-mail
-            <input
-                id="email"
-                type="email"
-                autocomplete="username"
-                required
-            >
-        </label>
+            <label for="email">
+                E-mail
 
-        <label>
-            Senha
-            <div class="password-box">
                 <input
-                    id="password"
-                    type="password"
-                    autocomplete="current-password"
+                    id="email"
+                    type="email"
+                    autocomplete="username"
+                    placeholder="Digite seu e-mail"
                     required
                 >
-                <button
-                    type="button"
-                    id="togglePassword"
-                >ðŸ‘</button>
-            </div>
-        </label>
+            </label>
 
-        <div id="loginMessage" class="message"></div>
+            <label for="password">
+                Senha
 
-        <button
-            id="loginButton"
-            class="primary full"
-            type="submit"
-        >
-            Entrar
-        </button>
+                <div class="password-box">
 
-    </form>
+                    <input
+                        id="password"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="Digite sua senha"
+                        required
+                    >
 
-    <div class="footer">
-        Sistema de Controle de PresenÃ§a
+                    <button
+                        type="button"
+                        id="togglePassword"
+                        aria-label="Mostrar ou ocultar senha"
+                    >
+                        👁️
+                    </button>
+
+                </div>
+            </label>
+
+            <div
+                id="loginMessage"
+                class="message"
+                role="alert"
+            ></div>
+
+            <button
+                id="loginButton"
+                class="primary full"
+                type="submit"
+            >
+                Entrar
+            </button>
+
+        </form>
+
+        <div class="footer">
+            Sistema de Controle de Presença
+        </div>
+
     </div>
 
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js"></script>
-<script src="js/auth.js"></script>
+    <!-- =====================================================
+         SUPABASE
+         ===================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <!-- Configuração do projeto -->
+
+    <script src="js/config.js"></script>
+
+
+    <!-- Inicialização do cliente Supabase -->
+
+    <script src="js/supabase.js"></script>
+
+
+    <!-- Sistema de autenticação -->
+
+    <script src="js/auth.js"></script>
 
 </body>
 </html>
