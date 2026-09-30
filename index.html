@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de PresenÃ§a - Login</title>
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body class="login-page">
+
+<div class="login-card">
+
+    <div class="logo">ðŸ­</div>
+
+    <h1>Controle de PresenÃ§a</h1>
+
+    <p class="subtitle">
+        Sistema de controle de colaboradores
+    </p>
+
+    <form id="loginForm">
+
+        <label>
+            E-mail
+            <input
+                id="email"
+                type="email"
+                autocomplete="username"
+                required
+            >
+        </label>
+
+        <label>
+            Senha
+            <div class="password-box">
+                <input
+                    id="password"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                >
+                <button
+                    type="button"
+                    id="togglePassword"
+                >ðŸ‘</button>
+            </div>
+        </label>
+
+        <div id="loginMessage" class="message"></div>
+
+        <button
+            id="loginButton"
+            class="primary full"
+            type="submit"
+        >
+            Entrar
+        </button>
+
+    </form>
+
+    <div class="footer">
+        Sistema de Controle de PresenÃ§a
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,599 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Controle de PresenÃ§a</title>
+
+<link rel="stylesheet" href="css/app.css">
+
+</head>
+
+<body>
+
+<div id="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <span>ðŸ­</span>
+            <div>
+                <strong>Controle de PresenÃ§a</strong>
+                <small>GestÃ£o de colaboradores</small>
+            </div>
+        </div>
+
+        <nav>
+
+            <button class="nav active" data-page="dashboard">
+                ðŸ“Š Dashboard
+            </button>
+
+            <button class="nav" data-page="chamada">
+                â˜‘ï¸ Caderno de Chamada
+            </button>
+
+            <button class="nav" data-page="colaboradores">
+                ðŸ‘¥ Colaboradores
+            </button>
+
+            <button class="nav" data-page="almoco">
+                ðŸ½ï¸ Lista de AlmoÃ§o
+            </button>
+
+            <button class="nav" data-page="relatorios">
+                ðŸ“„ RelatÃ³rios
+            </button>
+
+            <button class="nav admin-only" data-page="usuarios">
+                ðŸ‘¤ UsuÃ¡rios
+            </button>
+
+        </nav>
+
+        <div class="sidebar-user">
+
+            <strong id="sideName">...</strong>
+
+            <small id="sideProfile">...</small>
+
+            <button id="logoutButton" class="logout">
+                Sair
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button id="mobileMenu" class="mobile-menu">
+                â˜°
+            </button>
+
+            <div>
+                <strong id="pageTitle">
+                    Dashboard
+                </strong>
+
+                <small id="todayText"></small>
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+
+            <!-- DASHBOARD -->
+
+            <div id="page-dashboard" class="page">
+
+                <div class="hero">
+
+                    <h1>
+                        OlÃ¡, <span id="welcomeName">...</span> ðŸ‘‹
+                    </h1>
+
+                    <p>
+                        Bem-vindo ao sistema de controle de presenÃ§a.
+                    </p>
+
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat">
+                        <span>Colaboradores ativos</span>
+                        <strong id="statColaboradores">0</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>Presentes pela manhÃ£</span>
+                        <strong id="statPresentes">0</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>Faltas pela manhÃ£</span>
+                        <strong id="statFaltas">0</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>AlmoÃ§os</span>
+                        <strong id="statAlmocos">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <h2>Acesso rÃ¡pido</h2>
+
+                    <div class="quick-grid">
+
+                        <button class="quick" data-page="chamada">
+                            â˜‘ï¸
+                            <strong>Caderno de chamada</strong>
+                            <span>Registrar presenÃ§a</span>
+                        </button>
+
+                        <button class="quick" data-page="colaboradores">
+                            ðŸ‘¥
+                            <strong>Colaboradores</strong>
+                            <span>Gerenciar cadastro</span>
+                        </button>
+
+                        <button class="quick" data-page="almoco">
+                            ðŸ½ï¸
+                            <strong>AlmoÃ§o</strong>
+                            <span>Lista de refeiÃ§Ãµes</span>
+                        </button>
+
+                        <button class="quick" data-page="relatorios">
+                            ðŸ“„
+                            <strong>RelatÃ³rios</strong>
+                            <span>Consultar frequÃªncia</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COLABORADORES -->
+
+            <div id="page-colaboradores" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Colaboradores</h1>
+                        <p>Cadastro de colaboradores da fÃ¡brica.</p>
+                    </div>
+
+                    <button
+                        id="newColaborador"
+                        class="primary admin-only"
+                    >
+                        + Novo colaborador
+                    </button>
+
+                </div>
+
+                <div class="card">
+
+                    <input
+                        id="searchColaborador"
+                        class="search"
+                        placeholder="ðŸ”Ž Pesquisar por nome, matrÃ­cula ou setor..."
+                    >
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>MatrÃ­cula</th>
+                                    <th>Setor</th>
+                                    <th>Status</th>
+                                    <th class="admin-only">AÃ§Ãµes</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="colaboradoresBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CHAMADA -->
+
+            <div id="page-chamada" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Caderno de Chamada</h1>
+                        <p>
+                            â˜‘ Presente &nbsp; | &nbsp;
+                            â˜ Falta
+                        </p>
+                    </div>
+
+                    <input
+                        id="chamadaDate"
+                        type="date"
+                        class="date-input"
+                    >
+
+                </div>
+
+                <div class="card">
+
+                    <div class="toolbar">
+
+                        <button
+                            id="saveChamada"
+                            class="primary admin-only"
+                        >
+                            ðŸ’¾ Salvar chamada
+                        </button>
+
+                        <button
+                            id="marcarManha"
+                            class="secondary admin-only"
+                        >
+                            Marcar manhÃ£
+                        </button>
+
+                        <button
+                            id="marcarTarde"
+                            class="secondary admin-only"
+                        >
+                            Marcar tarde
+                        </button>
+
+                        <button
+                            id="marcarHoraExtra"
+                            class="secondary admin-only"
+                        >
+                            Marcar hora extra
+                        </button>
+
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table class="attendance">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Colaborador</th>
+                                    <th>ManhÃ£</th>
+                                    <th>Tarde</th>
+                                    <th>Hora Extra</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="chamadaBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div
+                        id="chamadaMessage"
+                        class="message"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ALMOÃ‡O -->
+
+            <div id="page-almoco" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>Lista de AlmoÃ§o</h1>
+                        <p>
+                            Colaboradores presentes pela manhÃ£.
+                        </p>
+                    </div>
+
+                    <input
+                        id="almocoDate"
+                        type="date"
+                        class="date-input"
+                    >
+
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat">
+                        <span>AlmoÃ§os normais</span>
+                        <strong id="almocoNormais">0</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>AlmoÃ§os extras</span>
+                        <strong id="almocoExtras">0</strong>
+                    </div>
+
+                    <div class="stat">
+                        <span>Total</span>
+                        <strong id="almocoTotal">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Colaborador</th>
+                                    <th>AlmoÃ§o</th>
+                                    <th>Quantidade extra</th>
+                                    <th>ObservaÃ§Ã£o</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="almocoBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                    <button
+                        id="saveAlmoco"
+                        class="primary admin-only"
+                    >
+                        ðŸ’¾ Salvar lista de almoÃ§o
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RELATÃ“RIOS -->
+
+            <div id="page-relatorios" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>RelatÃ³rios</h1>
+                        <p>
+                            Consulte presenÃ§as e faltas por perÃ­odo.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="filters">
+
+                        <label>
+                            Data inicial
+                            <input id="reportStart" type="date">
+                        </label>
+
+                        <label>
+                            Data final
+                            <input id="reportEnd" type="date">
+                        </label>
+
+                        <label>
+                            Colaborador
+                            <select id="reportCollaborator">
+                                <option value="">Todos</option>
+                            </select>
+                        </label>
+
+                        <button
+                            id="generateReport"
+                            class="primary"
+                        >
+                            Gerar relatÃ³rio
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div
+                    id="reportResult"
+                    class="card hidden"
+                >
+
+                    <div class="report-actions">
+
+                        <button
+                            id="printReport"
+                            class="primary"
+                        >
+                            ðŸ–¨ï¸ Imprimir / Salvar PDF
+                        </button>
+
+                    </div>
+
+                    <div id="reportContent"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- USUÃRIOS -->
+
+            <div id="page-usuarios" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h1>UsuÃ¡rios</h1>
+                        <p>
+                            UsuÃ¡rios cadastrados no sistema.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <p class="info">
+                        A criaÃ§Ã£o de contas de autenticaÃ§Ã£o serÃ¡
+                        realizada por uma funÃ§Ã£o administrativa segura.
+                        Esta tela lista os perfis existentes.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Perfil</th>
+                                    <th>Status</th>
+                                    <th>Criado em</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="usuariosBody"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- MODAL COLABORADOR -->
+
+<div
+    id="modal"
+    class="modal hidden"
+>
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Novo colaborador
+            </h2>
+
+            <button id="closeModal">
+                Ã—
+            </button>
+
+        </div>
+
+        <form id="colaboradorForm">
+
+            <input id="colaboradorId" type="hidden">
+
+            <label>
+                Nome
+                <input
+                    id="colaboradorNome"
+                    required
+                    maxlength="120"
+                >
+            </label>
+
+            <label>
+                MatrÃ­cula
+                <input
+                    id="colaboradorMatricula"
+                    required
+                    maxlength="50"
+                >
+            </label>
+
+            <label>
+                Setor
+                <input
+                    id="colaboradorSetor"
+                    maxlength="100"
+                >
+            </label>
+
+            <label class="check-label">
+
+                <input
+                    id="colaboradorAtivo"
+                    type="checkbox"
+                    checked
+                >
+
+                Colaborador ativo
+
+            </label>
+
+            <div
+                id="modalMessage"
+                class="message"
+            ></div>
+
+            <button
+                type="submit"
+                class="primary full"
+            >
+                Salvar
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
+
